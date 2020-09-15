@@ -5,9 +5,16 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <stdlib.h>
 #include <ctime>
 
-char word[100]="abcdefghijklmnopqrstuvwxyz";
+char *word[3]=
+{
+  "main",
+  "int",
+  "void"
+};
+  
 
 using namespace std;
 
@@ -48,19 +55,23 @@ void move(int x,int y)
 
 
 
-void rain(char *text) //call-by-reference 개념 사용
+void rain(char *text[]) //call-by-reference 개념 사용
 {
+  srand(time(NULL));//의사난수 생성(윤성우 책 408페이지)
+  int x_pos=rand()%100;
   for(int j=0;j<10;j++)
   {
-    move(0,j);
-    cout<< *text<<endl;
+    move(x_pos,j);
+    cout<< text[1]<<endl;
     mysleep(100);
+    system("clear");//system("cls")가 실행이 안되서 대신 넣음
   }
 }
+
+
+
 
 int main() 
 { 
   rain(word);//키포인트:&word[0]=word,word[i]=*(word+i)
-  
-  
 }
