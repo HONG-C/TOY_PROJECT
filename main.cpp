@@ -59,10 +59,11 @@ void rain(char *text[]) //call-by-reference 개념 사용
 {
   srand(time(NULL));//의사난수 생성(윤성우 책 408페이지)
   int x_pos=rand()%100;
+  char *random_word=text[rand()%3];//단어들 중 하나가 랜덤으로 선정
   for(int j=0;j<10;j++)
   {
     move(x_pos,j);
-    cout<< text[1]<<endl;
+    cout<<random_word<<endl;
     mysleep(100);
     system("clear");//system("cls")가 실행이 안되서 대신 넣음
   }
