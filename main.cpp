@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <ctime>
 
+char *raining_word;
+
 char *word[3]=
 {
   "main",
@@ -58,8 +60,9 @@ void move(int x,int y)
 void rain(char *text[]) //call-by-reference 개념 사용
 {
   srand(time(NULL));//의사난수 생성(윤성우 책 408페이지)
-  int x_pos=rand()%100;
+  int x_pos=rand()%30;
   char *random_word=text[rand()%3];//단어들 중 하나가 랜덤으로 선정
+  raining_word=random_word;
   for(int j=0;j<10;j++)
   {
     move(x_pos,j);
@@ -69,10 +72,29 @@ void rain(char *text[]) //call-by-reference 개념 사용
   }
 }
 
+ 
+void check_typing(void)
+{
+  cout<<"raining word: "<<raining_word<<endl;
+  cout<<"type the word"<<endl;
+  char *typed_word;
+  cin>>typed_word;
+  cout<<typed_word<<endl;
+  if(*raining_word==*typed_word)//이 부분 복습!
+  {
+    cout<<"correct!"<<endl;
+  }
+  else
+  {
+    cout<<"wrong!"<<endl;
+  }
+}
+
 
 
 
 int main() 
 { 
   rain(word);//키포인트:&word[0]=word,word[i]=*(word+i)
+  check_typing();
 }
