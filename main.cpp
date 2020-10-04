@@ -8,7 +8,13 @@
 #include <stdlib.h>
 #include <ctime>
 
-char *raining_word;
+//함수의 선언부분
+void mysleep(int sec);
+void move(int x,int y);
+void rain(char *text[],int i);
+int check_typing(void);
+
+char *raining_word="hello world";//상수형태의 문자열이라 오류가 발생하는듯..수정필요
 
 char *word[3]=
 {
@@ -19,6 +25,8 @@ char *word[3]=
   
 
 using namespace std;
+
+//함수의 정의 부분
 
 /*
 sleep함수 정의
@@ -55,9 +63,12 @@ void move(int x,int y)
   }
 }
 
+/*
+단어가 비처럼 내리는 것을 구현한 rain 함수 구현
+call-by-reference 개념 사용,i는 정답입력 확인을 위한 인자
+*/
 
-
-void rain(char *text[]) //call-by-reference 개념 사용
+void rain(char *text[],int i=0)
 {
   srand(time(NULL));//의사난수 생성(윤성우 책 408페이지)
   int x_pos=rand()%30;
@@ -67,26 +78,33 @@ void rain(char *text[]) //call-by-reference 개념 사용
   {
     move(x_pos,j);
     cout<<random_word<<endl;
+    if(i==1)
+    {
+        break;       
+    }
+    else
     mysleep(100);
     system("clear");//system("cls")가 실행이 안되서 대신 넣음
   }
 }
 
  
-void check_typing(void)
+int check_typing(void)
 {
   cout<<"raining word: "<<raining_word<<endl;
   cout<<"type the word"<<endl;
-  char *typed_word;
+  char typed_word[20];//이 부분을 char *typed_word로 선언하면 상수형태 문자열이라 에러남
   cin>>typed_word;
   cout<<typed_word<<endl;
   if(*raining_word==*typed_word)//이 부분 복습!
   {
     cout<<"correct!"<<endl;
+    return 1;
   }
   else
   {
     cout<<"wrong!"<<endl;
+    return 0;
   }
 }
 
@@ -95,6 +113,9 @@ void check_typing(void)
 
 int main() 
 { 
-  rain(word);//키포인트:&word[0]=word,word[i]=*(word+i)
-  check_typing();
+  
+  raining_word=word[0];
+  int check_num=check_typing();
+  rain(word,check_num);//키포인트:&word[0]=word,word[i]=*(word+i)
+  
 }
