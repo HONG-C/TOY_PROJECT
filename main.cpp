@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <stdlib.h>
 #include <ctime>
+#include <thread>
 
 //함수의 선언부분
 void mysleep(int sec);
@@ -117,5 +118,4 @@ int main()
   raining_word=word[0];
   int check_num=check_typing();
   rain(word,check_num);//키포인트:&word[0]=word,word[i]=*(word+i)
-  
 }
