@@ -9,11 +9,22 @@
 #include <ctime>
 #include <thread>
 
+using namespace std;
+
 //함수의 선언부분
 void mysleep(int sec);
 void move(int x,int y);
 void rain(char *text[],int i);
 int check_typing(void);
+void test_thread(void)
+{
+  cout<<"this is thread";
+}
+void test_thread_2(void)
+{
+  cout<<"this is  also thread";
+}
+
 
 char *raining_word="hello world";//상수형태의 문자열이라 오류가 발생하는듯..수정필요
 
@@ -25,7 +36,7 @@ char *word[3]=
 };
   
 
-using namespace std;
+
 
 //함수의 정의 부분
 
@@ -114,8 +125,14 @@ int check_typing(void)
 
 int main() 
 { 
-  
+  /*
   raining_word=word[0];
   int check_num=check_typing();
   rain(word,check_num);//키포인트:&word[0]=word,word[i]=*(word+i)
+  */
+  thread t1(test_thread);
+  thread t2(test_thread_2);
+  
+  t1.join();
+  t2.join();
 }
